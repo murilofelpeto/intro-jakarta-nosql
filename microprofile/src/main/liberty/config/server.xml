@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="${project.name}">
+
+  <featureManager>
+    <feature>microProfile-6.0</feature>
+  </featureManager>
+
+
+  <httpEndpoint httpPort="9080"
+    httpsPort="9443"
+    id="defaultHttpEndpoint"/>
+
+  <keyStore id="defaultKeyStore" location="public.jks" password="atbash" type="JKS"/>
+  <mpJwt audiences="targetService" id="jwtUserConsumer" issuer="${jwt.issuer}" keyName="theKeyId"/>
+
+  <!-- This is the keystore that will be used by SSL and by JWT. -->
+  <mpMetrics authentication="false"/>
+
+
+  <!-- The MP JWT configuration that injects the caller's JWT into a ResourceScoped bean for inspection. -->
+  <webApplication contextRoot="${app.context.root}" location="${project.name}.war">
+    <classloader apiTypeVisibility="+third-party"/>
+  </webApplication>
+
+</server>
